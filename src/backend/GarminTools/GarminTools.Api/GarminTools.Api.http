@@ -1,0 +1,6 @@
+@GarminTools.Api_HostAddress = http://localhost:5142
+
+GET {{GarminTools.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
