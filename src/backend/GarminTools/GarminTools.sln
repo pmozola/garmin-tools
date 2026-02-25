@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminTools.Aspire", "ASPIR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminTools.Aspire.ServiceDefaults", "ASPIRE\GarminTools.Aspire.ServiceDefaults\GarminTools.Aspire.ServiceDefaults.csproj", "{ADB1DAB0-6265-4724-A4F3-83E221A4DCA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminTools.Application", "GarminTools.Application\GarminTools.Application.csproj", "{AE393418-2518-459D-BB2C-06EA44461154}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminTools.Infrastructure", "GarminTools.Infrastructure\GarminTools.Infrastructure.csproj", "{6057BF74-3D3A-4042-8EB5-F6748EADC2F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminTools.Domain", "GarminTools.Domain\GarminTools.Domain.csproj", "{32A49CE3-E4B7-44E7-80AE-1A56C90458C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +37,18 @@ Global
 		{ADB1DAB0-6265-4724-A4F3-83E221A4DCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB1DAB0-6265-4724-A4F3-83E221A4DCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB1DAB0-6265-4724-A4F3-83E221A4DCA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE393418-2518-459D-BB2C-06EA44461154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE393418-2518-459D-BB2C-06EA44461154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE393418-2518-459D-BB2C-06EA44461154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE393418-2518-459D-BB2C-06EA44461154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6057BF74-3D3A-4042-8EB5-F6748EADC2F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6057BF74-3D3A-4042-8EB5-F6748EADC2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6057BF74-3D3A-4042-8EB5-F6748EADC2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6057BF74-3D3A-4042-8EB5-F6748EADC2F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A49CE3-E4B7-44E7-80AE-1A56C90458C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A49CE3-E4B7-44E7-80AE-1A56C90458C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A49CE3-E4B7-44E7-80AE-1A56C90458C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A49CE3-E4B7-44E7-80AE-1A56C90458C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{556BE898-592D-4046-9B64-ACE495AC12D2} = {49EDB050-B7A5-4146-B7C4-F98DD0AD9068}

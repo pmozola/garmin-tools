@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="14.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
     </ItemGroup>
@@ -20,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ASPIRE\GarminTools.Aspire.ServiceDefaults\GarminTools.Aspire.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\GarminTools.Application\GarminTools.Application.csproj" />
     </ItemGroup>
 
 </Project>
