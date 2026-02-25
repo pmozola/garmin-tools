@@ -22,7 +22,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.MapDefaultEndpoints();
 
 app.Run();
