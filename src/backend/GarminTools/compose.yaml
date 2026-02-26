@@ -1,0 +1,7 @@
+﻿services:
+  garmintools.api:
+    image: garmintools.api
+    build:
+      context: .
+      dockerfile: GarminTools.Api/Dockerfile
+
