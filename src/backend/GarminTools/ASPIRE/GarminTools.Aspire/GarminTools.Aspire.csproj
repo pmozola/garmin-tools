@@ -12,4 +12,8 @@
       <ProjectReference Include="..\..\GarminTools.Api\GarminTools.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.1.2" />
+    </ItemGroup>
+
 </Project>
