@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LoadingIndicator } from './components/loading-indicator/loading-indicator';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LoadingIndicator],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

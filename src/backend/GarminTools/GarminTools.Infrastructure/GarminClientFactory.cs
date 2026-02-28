@@ -46,6 +46,21 @@ public class GarminToolsApiClient(GarminConnectContext garminConnectContext) : G
         }
         
     }
+
+    public async Task<(bool, string)> ValidateLogin(CancellationToken cancellationToken)
+    {
+        try
+        {
+            await garminConnectContext.ReLoginIfExpired(force: true, cancellationToken);
+            return (true, string.Empty);
+        }
+        catch (Exception e)
+        {
+            return string.Equals(e.Message, "Failed to find regex match for ticket.", StringComparison.InvariantCultureIgnoreCase) ? 
+                (false, "Invalid credentials") : 
+                (false, e.Message);
+        }
+    }
 }
 
 public interface IGarminToolsApiClient : IGarminConnectClient
@@ -53,4 +68,6 @@ public interface IGarminToolsApiClient : IGarminConnectClient
     Task RemoveWorkout(long workoutId, CancellationToken cancellationToken);
     Task<Course[]> GetCourses(CancellationToken cancellationToken);
     Task RemoveCourses(long[] coursesIds, CancellationToken cancellationToken);
+
+    Task<(bool, string)> ValidateLogin(CancellationToken cancellationToken);
 }

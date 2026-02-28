@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { GarminAuthApi } from './garmin-auth-api';
 
-import { LocalStorage } from './local-storage';
-
-describe('LocalStorage', () => {
-  let service: LocalStorage;
+describe('GarminAuthApi', () => {
+  let service: GarminAuthApi;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LocalStorage);
+    service = TestBed.inject(GarminAuthApi);
   });
 
   it('should be created', () => {

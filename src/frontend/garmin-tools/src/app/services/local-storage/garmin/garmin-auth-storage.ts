@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LocalStorage } from './local-storage';
-import { GarminAuth } from '../../models/garmin-auth';
+import { LocalStorage } from '../common/local-storage';
+import { GarminAuth } from '../../../models/garmin-auth';
 
 @Injectable({
   providedIn: 'root',

@@ -1,0 +1,8 @@
+<p>courses works!</p>
+
+
+<ul>Courses 
+@for (item of (courses$ | async); track item.id) {
+  <li>{{ item.name }}</li>
+}
+</ul>sdf 

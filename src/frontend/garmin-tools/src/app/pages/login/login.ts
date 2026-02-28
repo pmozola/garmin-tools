@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
-
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { email, form, FormField, required } from '@angular/forms/signals';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { GarminAuthStorage } from '../../services/local-storage/garmin-auth-storage';
+import { GarminAuthStorage } from '../../services/local-storage/garmin/garmin-auth-storage';
+import { GarminAuth } from '../../models/garmin-auth';
+import { Router } from '@angular/router';
+import { GarminAuthApi } from '../../services/api/auth/garmin-auth-api';
 
 @Component({
   selector: 'app-login',
@@ -18,27 +20,48 @@ import { GarminAuthStorage } from '../../services/local-storage/garmin-auth-stor
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule
+    FormField
   ]
 })
 export class Login {
-  private fb = inject(FormBuilder);
   private storage = inject(GarminAuthStorage);
+  private api = inject(GarminAuthApi);
+  private router = inject(Router);
 
-  addressForm = this.fb.group({
-    email: [null, Validators.required],
-    password: [null, Validators.required],
+  loginModel = signal<GarminAuth>({
+    email: '',
+    password: ''
+  })
+
+  addressForm = form(this.loginModel, (schemaPath) => {
+    required(schemaPath.email, { message: 'Email is required' }),
+      email(schemaPath.email, { message: 'Email is not valid' }),
+      required(schemaPath.password, { message: 'Password is required' })
   });
 
-  onSubmit(): void {
-    if (!this.addressForm.invalid) {
-          alert('form invalid!');
-      return;
-    }
+  onSubmit(event: Event): void {
+    event.preventDefault();
 
-    alert('Thanks!');
-    this.storage.setAuth(
-      this.addressForm.controls.email.value!,
-      this.addressForm.controls.password.value!);
+    if (this.addressForm().valid()) {
+      this.api.verifyCredentials({
+        email: this.addressForm.email().value(),
+        password: this.addressForm.password().value()
+      }).subscribe({
+        next: (response) => {
+          if (response.isValid) {
+            this.storage.setAuth(
+              this.addressForm.email().value(),
+              this.addressForm.password().value());
+
+            this.router.navigateByUrl('');
+          } else {
+            alert(response.errorMessage);
+          }
+        },
+        error: (error) => {
+          alert('Error verifying credentials: ' + error.message);
+        }
+      });
+    }
   }
 }
