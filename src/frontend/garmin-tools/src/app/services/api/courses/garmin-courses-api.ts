@@ -16,6 +16,17 @@ export class GarminCoursesApi {
 
     return this.httpClient.get<GetAllCoursesQueryResponse[]>('garmin/courses', { params: { email: auth.email, password: auth.password } });
   }
+
+  public Remove(ids: number[]): Observable<void> {
+    const auth = this.localstorage.getAuth()!;
+ 
+    return this.httpClient.delete<void>('garmin/courses', {
+      body: {
+          coursesIds: ids,
+          authentication: auth
+      }
+    });
+  }
 }
 
 export interface GetAllCoursesQueryResponse {
