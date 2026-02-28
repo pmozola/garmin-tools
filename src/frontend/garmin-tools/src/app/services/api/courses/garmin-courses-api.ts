@@ -19,11 +19,11 @@ export class GarminCoursesApi {
 
   public Remove(ids: number[]): Observable<void> {
     const auth = this.localstorage.getAuth()!;
- 
+
     return this.httpClient.delete<void>('garmin/courses', {
       body: {
-          coursesIds: ids,
-          authentication: auth
+        coursesIds: ids,
+        authentication: auth
       }
     });
   }
@@ -32,4 +32,7 @@ export class GarminCoursesApi {
 export interface GetAllCoursesQueryResponse {
   name: string;
   id: number;
+  createdAt: string;
+  distanceInMeters: number;
+  elevationGainInMeters: number;
 }

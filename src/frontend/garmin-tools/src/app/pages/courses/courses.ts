@@ -7,12 +7,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CoursesDataSource } from './courses.datasource';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { RemoveAllCoursesDialog } from './remove-all-courses-dialog/remove-all-courses-dialog';
-import { DialogRef } from '@angular/cdk/dialog';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from "@angular/material/icon";
+import { DatePipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-courses',
-  imports: [MatTableModule, MatCheckboxModule, MatButtonModule],
+  imports: [MatTableModule, MatCheckboxModule, MatButtonModule, MatIconModule, DecimalPipe, DatePipe],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
@@ -21,7 +22,7 @@ export class Courses implements OnInit {
   api = inject(GarminCoursesApi);
   dialog = inject(MatDialog);
   dataSource = new CoursesDataSource(this.api);
-  displayedColumns: string[] = ['select', 'id', 'name'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'createdAt', 'distanceInMeters', 'elevationGainInMeters', 'goToWebsite'];
 
   selection = new SelectionModel<GetAllCoursesQueryResponse>(true, []);
 
@@ -29,14 +30,12 @@ export class Courses implements OnInit {
     this.dataSource.loadCourses();
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.currentData.length;
     return numSelected === numRows;
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
@@ -46,7 +45,6 @@ export class Courses implements OnInit {
     this.selection.select(...this.dataSource.currentData);
   }
 
-  /** The label for the checkbox on the passed row */
   checkboxLabel(row?: GetAllCoursesQueryResponse): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
