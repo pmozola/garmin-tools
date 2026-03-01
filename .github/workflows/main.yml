@@ -32,6 +32,9 @@ jobs:
         with:
           path: 'dist/${{ github.event.repository.name }}/browser/.'
   deploy:
+    defaults:
+      run:
+        working-directory: ./src/frontend/garmin-tools
     needs: build
     runs-on: ubuntu-latest
     permissions:
