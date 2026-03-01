@@ -7,12 +7,13 @@ import { environment } from './environment/environment';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { baseUrlInterceptor } from './interceptors/base-url-interceptor';
 import { loadingInterceptor } from './interceptors/loading-interceptor';
+import { garminAuthInterceptor } from './interceptors/garmin-auth/garmin-auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
      { provide: API_URL, useValue: environment.apiBaseUrl },
-    provideHttpClient(withInterceptors([baseUrlInterceptor, loadingInterceptor]), withFetch()),
+    provideHttpClient(withInterceptors([baseUrlInterceptor, loadingInterceptor, garminAuthInterceptor]), withFetch()),
   ]
 };

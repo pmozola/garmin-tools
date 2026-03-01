@@ -3,13 +3,18 @@ using Garmin.Connect.Auth;
 
 namespace GarminTools.Infrastructure;
 
-public class GarminClientFactory
+public class GarminClientFactory : IGarminClientFactory
 {
     public IGarminToolsApiClient Get(string userName, string password)
     {
         return new GarminToolsApiClient(new GarminConnectContext(new HttpClient(),
             new BasicAuthParameters(userName, password)));
     }
+}
+
+public interface IGarminClientFactory
+{
+    IGarminToolsApiClient Get(string userName, string password);
 }
 
 public class GarminToolsApiClient(GarminConnectContext garminConnectContext) : GarminConnectClient(garminConnectContext), IGarminToolsApiClient

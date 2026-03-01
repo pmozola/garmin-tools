@@ -22,9 +22,9 @@ public class GarminController(ISender sender) : ControllerBase
     }
     
     [HttpGet("courses")]
-    public Task<GetAllCoursesQueryResponse[]> GetCourses([FromQuery]string email, [FromQuery]string password, CancellationToken cancellationToken)
+    public Task<GetAllCoursesQueryResponse[]> GetCourses(CancellationToken cancellationToken)
     {
-        return sender.Send(new GetAllCoursesQuery(new GarminAuthentication(email, password)), cancellationToken);
+        return sender.Send(new GetAllCoursesQuery(), cancellationToken);
     }
     
     [HttpDelete("courses")]

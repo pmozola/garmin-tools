@@ -1,4 +1,5 @@
 using GarminTools.Application.Handlers.Queries;
+using GarminTools.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,8 @@ builder.Services.AddCors(options =>
             policy.AllowAnyMethod();
         });
 });
+builder.Services.AddInfrastructure();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

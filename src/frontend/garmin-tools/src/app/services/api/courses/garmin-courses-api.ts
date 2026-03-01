@@ -14,7 +14,7 @@ export class GarminCoursesApi {
   getAll(): Observable<GetAllCoursesQueryResponse[]> {
     const auth = this.localstorage.getAuth()!;
 
-    return this.httpClient.get<GetAllCoursesQueryResponse[]>('garmin/courses', { params: { email: auth.email, password: auth.password } });
+    return this.httpClient.get<GetAllCoursesQueryResponse[]>('garmin/courses');
   }
 
   public Remove(ids: number[]): Observable<void> {

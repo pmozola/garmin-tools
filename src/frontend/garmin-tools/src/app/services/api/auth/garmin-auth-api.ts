@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class GarminAuthApi {
    private httpClient = inject(HttpClient);
   verifyCredentials(auth:GarminAuth): Observable<GarminCredentialsResponse> {
-    return this.httpClient.post<GarminCredentialsResponse>('garmin/credentials', auth );
+    return this.httpClient.post<GarminCredentialsResponse>(GarminApiUrls.verifyCredentials, auth );
   }
 }
 
@@ -18,4 +18,10 @@ export interface GarminCredentialsResponse {
   isValid: boolean;
   errorMessage: string;
 }
+
+export class GarminApiUrls {
+  public static prefix: string  ='garmin';
+  public static verifyCredentials = `${GarminApiUrls.prefix}/credentials`;
+}
+
 
