@@ -1,0 +1,12 @@
+<h2 mat-dialog-title> Remove All Courses</h2>
+
+<mat-dialog-content>
+    <p>Are you sure you want to remove all courses?</p>
+  
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button matButton (click)="close()">Close</button>
+    <button matButton="elevated" (click)="removeAll()">   <mat-icon fontIcon="warning"/> Remove All</button>
+</mat-dialog-actions>

@@ -1,0 +1,39 @@
+<form (submit)="onSubmit($event)">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Garmin Login</mat-card-title>
+      <mat-card-subtitle>
+        bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+        bla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla bla
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" [formField]="addressForm.email">
+           
+            @if (addressForm.email().touched() && !addressForm.email().valid()) {
+              @for(error of addressForm.email().errors(); track error){
+                <mat-error>{{ error.message }}</mat-error>
+              }
+            }
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Password" [formField]="addressForm.password">
+              @if (addressForm.password().touched() && !addressForm.password().valid()) {
+                @for(error of addressForm.password().errors(); track error){
+                  <mat-error>{{ error.message }}</mat-error>
+                }
+              }
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matButton="elevated" color="primary" type="submit" [disabled]="!addressForm().valid()">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

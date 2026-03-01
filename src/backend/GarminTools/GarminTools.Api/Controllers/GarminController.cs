@@ -21,13 +21,13 @@ public class GarminController(ISender sender) : ControllerBase
         return sender.Send(query, cancellationToken);
     }
     
-    [HttpGet("cources")]
-    public Task<GetAllCoursesQueryResponse[]> GetCourses([FromQuery]GetAllCoursesQuery query, CancellationToken cancellationToken)
+    [HttpGet("courses")]
+    public Task<GetAllCoursesQueryResponse[]> GetCourses(CancellationToken cancellationToken)
     {
-        return sender.Send(query, cancellationToken);
+        return sender.Send(new GetAllCoursesQuery(), cancellationToken);
     }
     
-    [HttpDelete("cources")]
+    [HttpDelete("courses")]
     public Task DeleteCourses([FromBody]RemoveCoursesCommand command, CancellationToken cancellationToken)
     {
         return sender.Send(command, cancellationToken);
@@ -38,4 +38,12 @@ public class GarminController(ISender sender) : ControllerBase
     {
         return sender.Send(command, cancellationToken);
     }
+    
+    [HttpPost("credentials")]
+    public Task<VerifyCredentialsCommandResponse> ValidateCredentials(VerifyCredentialsRequest command, CancellationToken cancellationToken)
+    {
+        return sender.Send(new VerifyCredentialsCommand(new GarminAuthentication(command.Email, command.Password)), cancellationToken);
+    }
+    
+    public record VerifyCredentialsRequest(string Email, string Password);
 }

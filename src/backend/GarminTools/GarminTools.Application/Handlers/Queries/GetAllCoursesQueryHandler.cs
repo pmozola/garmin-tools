@@ -3,16 +3,21 @@ using MediatR;
 
 namespace GarminTools.Application.Handlers.Queries;
 
-public class GetAllCoursesQueryHandler : IRequestHandler<GetAllCoursesQuery, GetAllCoursesQueryResponse[]>
+public class GetAllCoursesQueryHandler(IGarminToolsApiClient client) : IRequestHandler<GetAllCoursesQuery, GetAllCoursesQueryResponse[]>
 {
     public async Task<GetAllCoursesQueryResponse[]> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
     {
-       var result = await new GarminClientFactory().Get(request.Auth.Email, request.Auth.Password).GetCourses(cancellationToken);
+       var result = await client.GetCourses(cancellationToken);
 
-       return result.Select(x => new GetAllCoursesQueryResponse(x.CourseName, x.CourseId)).ToArray();
+       return result.Select(x => new GetAllCoursesQueryResponse(
+           x.CourseName,
+           x.CourseId,
+           x.CreatedDateFormatted, 
+           x.DistanceInMeters, 
+           x.ElevationGainInMeters)).ToArray();
     }
 }
 
-public record GetAllCoursesQuery(GarminAuthentication Auth) : IRequest<GetAllCoursesQueryResponse[]>;
+public record GetAllCoursesQuery : IRequest<GetAllCoursesQueryResponse[]>;
 
-public record GetAllCoursesQueryResponse(string Name, long Id);
+public record GetAllCoursesQueryResponse(string Name, long Id, string CreatedAt, double DistanceInMeters, double ElevationGainInMeters);
