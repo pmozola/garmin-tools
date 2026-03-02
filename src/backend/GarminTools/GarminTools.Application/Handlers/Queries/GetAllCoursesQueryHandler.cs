@@ -1,4 +1,6 @@
 using GarminTools.Infrastructure;
+using GarminTools.Infrastructure.GarminApi;
+using GarminTools.Infrastructure.GarminApi.Client;
 using MediatR;
 
 namespace GarminTools.Application.Handlers.Queries;
@@ -7,7 +9,7 @@ public class GetAllCoursesQueryHandler(IGarminToolsApiClient client) : IRequestH
 {
     public async Task<GetAllCoursesQueryResponse[]> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
     {
-       var result = await client.GetCourses(cancellationToken);
+       var result = await client.GetCoursesAsync(cancellationToken);
 
        return result.Select(x => new GetAllCoursesQueryResponse(
            x.CourseName,

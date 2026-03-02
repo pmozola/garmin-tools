@@ -1,5 +1,7 @@
 using Garmin.Connect.Parameters;
 using GarminTools.Infrastructure;
+using GarminTools.Infrastructure.GarminApi;
+using GarminTools.Infrastructure.GarminApi.Client;
 using MediatR;
 
 namespace GarminTools.Application.Handlers.Queries;

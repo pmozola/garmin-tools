@@ -1,5 +1,7 @@
 using GarminTools.Application.Handlers.Queries;
 using GarminTools.Infrastructure;
+using GarminTools.Infrastructure.GarminApi;
+using GarminTools.Infrastructure.GarminApi.Factory;
 using MediatR;
 
 namespace GarminTools.Application.Handlers.Commands;
@@ -10,7 +12,7 @@ public class VerifyCredentialsCommandHandler : IRequestHandler<VerifyCredentials
     public async Task<VerifyCredentialsCommandResponse> Handle(VerifyCredentialsCommand request, CancellationToken cancellationToken)
     {
         var result  = await new GarminClientFactory()
-            .Get(request.Authentication.Email, request.Authentication.Password).ValidateLogin(cancellationToken);
+            .Get(request.Authentication.Email, request.Authentication.Password).ValidateLoginAsync(cancellationToken);
 
         return new VerifyCredentialsCommandResponse(result.Item1, result.Item2);
     }
