@@ -11,33 +11,33 @@ builder.Services.AddOpenApi();
 builder.AddServiceDefaults();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(cfg => {
+builder.Services.AddMediatR(cfg =>
+{
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(GetUserDevicesQueryHandler).Assembly);
 });
-var  MyAllowSpecificOrigins = "_localhostOrigins";
-var  prodOrigins = "_prodOrigins";
+
+var defaultCorsPolicy = "DefaultCorsPolicy";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy  =>
+    options.AddPolicy(name: defaultCorsPolicy, policy =>
+    {
+        policy.SetIsOriginAllowed(origin =>
         {
-            policy.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || new Uri(origin).Host == "myweb.local");
-            policy.AllowAnyHeader();
-            policy.AllowAnyMethod();
+            if (string.IsNullOrEmpty(origin)) return false;
+            var host = new Uri(origin).Host;
+            if (host is "localhost" or "myweb.local") return true;
+
+            return origin is "https://jolly-grass-0b3ff2403.6.azurestaticapps.net" or "https://pmozola.github.io";
         });
-    
-    options.AddPolicy(name: prodOrigins,
-        policy  =>
-        {
-            policy.WithOrigins(
-                "https://jolly-grass-0b3ff2403.6.azurestaticapps.net",
-                "https://pmozola.github.io");
-            policy.AllowAnyHeader();
-            policy.AllowAnyMethod();
-        });
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+
+        policy.AllowCredentials();
+    });
 });
+
 builder.Services.AddInfrastructure();
 builder.Services.AddHttpContextAccessor();
 
@@ -51,6 +51,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(defaultCorsPolicy);
 app.UseAuthorization();
 
 app.MapControllers();
@@ -59,6 +60,4 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapDefaultEndpoints();
-app.UseCors(MyAllowSpecificOrigins);
-app.UseCors(prodOrigins);
 app.Run();
