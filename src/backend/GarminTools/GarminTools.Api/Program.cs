@@ -15,7 +15,8 @@ builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(GetUserDevicesQueryHandler).Assembly);
 });
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var  MyAllowSpecificOrigins = "_localhostOrigins";
+var  prodOrigins = "_prodOrigins";
 
 builder.Services.AddCors(options =>
 {
@@ -23,6 +24,12 @@ builder.Services.AddCors(options =>
         policy  =>
         {
             policy.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || new Uri(origin).Host == "myweb.local");
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+        });
+    options.AddPolicy(name: prodOrigins,
+        policy  =>
+        {
             policy.WithOrigins(
                 "https://jolly-grass-0b3ff2403.6.azurestaticapps.net/",
                 "https://pmozola.github.io/");
@@ -52,5 +59,5 @@ app.UseSwaggerUI();
 
 app.MapDefaultEndpoints();
 app.UseCors(MyAllowSpecificOrigins);
-
+app.UseCors(prodOrigins);
 app.Run();
