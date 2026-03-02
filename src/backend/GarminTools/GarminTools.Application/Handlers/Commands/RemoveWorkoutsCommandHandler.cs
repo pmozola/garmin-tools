@@ -1,4 +1,6 @@
 using GarminTools.Infrastructure;
+using GarminTools.Infrastructure.GarminApi;
+using GarminTools.Infrastructure.GarminApi.Client;
 using MediatR;
 
 namespace GarminTools.Application.Handlers.Commands;
@@ -9,7 +11,7 @@ public class RemoveWorkoutsCommandHandler(IGarminToolsApiClient client) : IReque
     {
        foreach (var requestActivitiesId in request.ActivitiesIds)
        {
-           await client.RemoveWorkout(requestActivitiesId, cancellationToken);
+           await client.RemoveWorkoutAsync(requestActivitiesId, cancellationToken);
        }
     }
 }
