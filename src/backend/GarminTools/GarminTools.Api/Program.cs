@@ -27,12 +27,13 @@ builder.Services.AddCors(options =>
             policy.AllowAnyHeader();
             policy.AllowAnyMethod();
         });
+    
     options.AddPolicy(name: prodOrigins,
         policy  =>
         {
             policy.WithOrigins(
-                "https://jolly-grass-0b3ff2403.6.azurestaticapps.net/",
-                "https://pmozola.github.io/");
+                "https://jolly-grass-0b3ff2403.6.azurestaticapps.net",
+                "https://pmozola.github.io");
             policy.AllowAnyHeader();
             policy.AllowAnyMethod();
         });
