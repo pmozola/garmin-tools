@@ -7,14 +7,18 @@ const GARMIN_PASSWORD_HEADER = 'Garmin-Password';
 const GARMIN_EMAIL_HEADER = 'Garmin-Email';
 
 export const garminAuthInterceptor: HttpInterceptorFn = (req, next) => {
-  if (!req.url.includes(GarminApiUrls.verifyCredentials) &&
-    req.url.includes(`/${GarminApiUrls.prefix}`)) {
+  if (!req.url.includes(GarminApiUrls.verifyCredentials)) {
 
     let store = inject(GarminAuthStorage);
+
+    if (!store.getAuth()) {
+      return next(req);
+    }
+
     const modified = req.clone({
       setHeaders: {
-        [GARMIN_EMAIL_HEADER]: store.getAuth()?.email ?? '',
-        [GARMIN_PASSWORD_HEADER]: store.getAuth()?.password ?? ''
+        [GARMIN_EMAIL_HEADER]: store.getAuth()!.email ?? '',
+        [GARMIN_PASSWORD_HEADER]: store.getAuth()!.password ?? ''
       }
     });
     return next(modified);
